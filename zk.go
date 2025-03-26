@@ -75,18 +75,6 @@ func (zk *ZK) Connect() error {
 
 	zk.sessionID = res.CommandID
 
-	if res.Code == CMD_ACK_UNAUTH {
-		commandString, _ := makeCommKey(zk.pin, zk.sessionID, 50)
-		res, err := zk.sendCommand(CMD_AUTH, commandString, 8)
-		if err != nil {
-			return err
-		}
-
-		if !res.Status {
-			return errors.New("unauthorized")
-		}
-	}
-
 	log.Println("Connected with session_id", zk.sessionID)
 	return nil
 }
