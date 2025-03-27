@@ -16,7 +16,7 @@ type ZKProperties struct {
 }
 
 func (zk *ZK) GetProperties() (*ZKProperties, error) {
-	if _, err := zk.sendCommand(CMD_GET_FREE_SIZES, nil, 1024); err != nil {
+	if _, err := zk.SendCommand(CMD_GET_FREE_SIZES, nil, 1024); err != nil {
 		return nil, err
 	}
 
@@ -51,7 +51,7 @@ func (zk *ZK) readWithBuffer(command, fct, ext int) ([]byte, int, error) {
 		return nil, 0, err
 	}
 
-	res, err := zk.sendCommand(1503, commandString, 1024)
+	res, err := zk.SendCommand(1503, commandString, 1024)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -115,7 +115,7 @@ func (zk *ZK) readWithBuffer(command, fct, ext int) ([]byte, int, error) {
 }
 
 func (zk *ZK) freeData() error {
-	if _, err := zk.sendCommand(CMD_FREE_DATA, nil, 8); err != nil {
+	if _, err := zk.SendCommand(CMD_FREE_DATA, nil, 8); err != nil {
 		return err
 	}
 
@@ -147,7 +147,7 @@ func (zk *ZK) readChunk(start, size int) ([]byte, error) {
 			return nil, err
 		}
 
-		res, err := zk.sendCommand(CMD_READ_BUFFER, commandString, size+32)
+		res, err := zk.SendCommand(CMD_READ_BUFFER, commandString, size+32)
 		if err != nil {
 			return nil, err
 		}
@@ -327,7 +327,7 @@ func (zk *ZK) decodeTime(packet []byte) (time.Time, error) {
 }
 
 func (zk *ZK) verifyUser() error {
-	res, err := zk.sendCommand(CMD_STARTVERIFY, nil, 8)
+	res, err := zk.SendCommand(CMD_STARTVERIFY, nil, 8)
 	if err != nil {
 		return err
 	}
@@ -346,7 +346,7 @@ func (zk *ZK) regEvent(flag int) error {
 		return err
 	}
 
-	res, err := zk.sendCommand(CMD_REG_EVENT, commandString, 8)
+	res, err := zk.SendCommand(CMD_REG_EVENT, commandString, 8)
 	if err != nil {
 		return err
 	}

@@ -68,7 +68,7 @@ func (zk *ZK) Connect() error {
 
 	zk.conn = tcpConnection
 
-	res, err := zk.sendCommand(CMD_CONNECT, nil, 8)
+	res, err := zk.SendCommand(CMD_CONNECT, nil, 8)
 	if err != nil {
 		return err
 	}
@@ -79,7 +79,7 @@ func (zk *ZK) Connect() error {
 	return nil
 }
 
-func (zk *ZK) sendCommand(command int, commandString []byte, responseSize int) (*Response, error) {
+func (zk *ZK) SendCommand(command int, commandString []byte, responseSize int) (*Response, error) {
 
 	if commandString == nil {
 		commandString = make([]byte, 0)
@@ -149,7 +149,7 @@ func (zk *ZK) Disconnect() error {
 		return errors.New("Already disconnected")
 	}
 
-	if _, err := zk.sendCommand(CMD_EXIT, nil, 8); err != nil {
+	if _, err := zk.SendCommand(CMD_EXIT, nil, 8); err != nil {
 		return err
 	}
 
@@ -164,7 +164,7 @@ func (zk *ZK) Disconnect() error {
 // EnableDevice enables the connected device
 func (zk *ZK) EnableDevice() error {
 
-	res, err := zk.sendCommand(CMD_ENABLEDEVICE, nil, 8)
+	res, err := zk.SendCommand(CMD_ENABLEDEVICE, nil, 8)
 	if err != nil {
 		return err
 	}
@@ -179,7 +179,7 @@ func (zk *ZK) EnableDevice() error {
 
 // DisableDevice disable the connected device
 func (zk *ZK) DisableDevice() error {
-	res, err := zk.sendCommand(CMD_DISABLEDEVICE, nil, 8)
+	res, err := zk.SendCommand(CMD_DISABLEDEVICE, nil, 8)
 	if err != nil {
 		return err
 	}
@@ -374,7 +374,7 @@ func (zk ZK) Clone() *ZK {
 }
 
 func (zk *ZK) GetTime() (time.Time, error) {
-	res, err := zk.sendCommand(CMD_GET_TIME, nil, 1032)
+	res, err := zk.SendCommand(CMD_GET_TIME, nil, 1032)
 	if err != nil {
 		return time.Now(), err
 	}
@@ -393,7 +393,7 @@ func (zk *ZK) SetTime(t time.Time) error {
 	if err != nil {
 		return err
 	}
-	res, err := zk.sendCommand(CMD_SET_TIME, commandString, 8)
+	res, err := zk.SendCommand(CMD_SET_TIME, commandString, 8)
 	if err != nil {
 		return err
 	}
