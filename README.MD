@@ -12,9 +12,10 @@ GOZK is a library to help gopher interact with ZK fingerprint machine
 
 ## Getting started
 
-Get source: ```go get github.com/canhlinh/gozk```
+Get source: `go get github.com/MuhammadUsamaAwan/gozk`
 
 Sample:
+
 ```
 package main
 
@@ -25,7 +26,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/canhlinh/gozk"
+	"github.com/MuhammadUsamaAwan/gozk"
 )
 
 func main() {
