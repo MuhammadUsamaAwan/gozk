@@ -3,6 +3,7 @@ package gozk
 import (
 	"encoding/hex"
 	"fmt"
+	"log"
 	"time"
 
 	binarypack "github.com/canhlinh/go-binary-pack"
@@ -189,7 +190,7 @@ func unpack(pad []string, data []byte) ([]interface{}, error) {
 func mustUnpack(pad []string, data []byte) []interface{} {
 	value, err := unpack(pad, data)
 	if err != nil {
-		panic(err)
+		log.Print(err)
 	}
 
 	return value

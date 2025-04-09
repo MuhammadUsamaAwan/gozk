@@ -3,6 +3,7 @@ package gozk
 import (
 	"errors"
 	"io"
+	"log"
 	"time"
 )
 
@@ -226,11 +227,11 @@ func (zk *ZK) mustReceiveData(size int) []byte {
 	data := make([]byte, size)
 	n, err := zk.conn.Read(data)
 	if err != nil {
-		panic(err)
+		log.Print(err)
 	}
 
 	if n == 0 {
-		panic("Failed to receive data")
+		log.Print("Failed to receive data")
 	}
 
 	return data[:n]
